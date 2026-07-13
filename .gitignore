@@ -1,0 +1,20 @@
+# Generated binaries and local caches
+*.blend1
+*.tmp
+*.log
+__pycache__/
+.pytest_cache/
+.godot/
+build/
+dist/
+exports/
+*.apk
+*.aab
+*.keystore
+*.jks
+*.p12
+*.pfx
+
+# Large source archives must be checksum-registered before commit
+assets/_source_archives/*
+!assets/_source_archives/.gitkeep
