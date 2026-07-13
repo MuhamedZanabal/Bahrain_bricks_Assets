@@ -3,7 +3,7 @@
   "generated_at": "2026-07-13",
   "source_repository": "MuhamedZanabal/brick-bahrain-open-world",
   "source_repository_mutated": false,
-  "current_observed_premium_head": "00a6ccc50caa9b23a70398da6854218fa7f2ebde",
+  "current_observed_premium_head": "2c164e724524f330380276eba3c2e886ddc4c126",
   "asset_repository_remote_created": false,
   "asset_repository_remote_blocker": "GitHub connector has no create-repository action",
   "local_branch": "work/bahrain-brick-complete-asset-system-v1",
@@ -14,5 +14,7 @@
   "blender_generation_status": "not_run_no_blender_executable",
   "android_validation_status": "blocked_no_generated_models_and_no_android_runtime",
   "third_party_assets_accepted": 0,
-  "third_party_asset_groups_quarantined": 8
+  "third_party_asset_groups_quarantined": 8,
+  "current_observed_premium_head_timestamp": "2026-07-13T14:49:50Z",
+  "authority_volatility": "source branch advanced during audit; re-resolve before integration"
 }

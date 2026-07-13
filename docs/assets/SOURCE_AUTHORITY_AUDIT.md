@@ -14,8 +14,8 @@ Audit date: 2026-07-13
 - Functional graphics baseline: `464a8811a818bd6bb9e102566e0a525396b11515`
 - Frozen controls authority: `c5548465627942a2889a0bd09f8979c3a29fbcdd`
 - Premium branch: `work/bahrain-brick-premium-visual-v14`
-- Current premium branch head exposed by draft PR #14: `00a6ccc50caa9b23a70398da6854218fa7f2ebde`
-- Earlier handover commit `31a21eff586f9b83ab1b0f6e900d55412dc77259` exists but is superseded by the current branch head.
+- Latest premium branch head observed from draft PR #14 at 2026-07-13T14:49:50Z: `2c164e724524f330380276eba3c2e886ddc4c126`
+- Earlier handover commit `31a21eff586f9b83ab1b0f6e900d55412dc77259` and intermediate audited head `00a6ccc50caa9b23a70398da6854218fa7f2ebde` exist but are superseded by the latest observed branch head.
 
 ## Important topology finding
 
@@ -58,3 +58,7 @@ The loader comments describe the GLBs as Kenney CC0 assets, but the repository a
 ## Mutation statement
 
 No branch, file, commit, pull request, workflow, release or setting in `MuhamedZanabal/brick-bahrain-open-world` was modified by this asset-production phase.
+
+## Authority volatility note
+
+The source branch changed while this audit was running. Consumers must resolve PR #14 again immediately before any future cross-repository integration and must not assume this recorded SHA remains current.
