@@ -1,0 +1,189 @@
+name: Publish verified Phase 4 Batch 2
+
+on:
+  push:
+    branches:
+      - import/batch2-verified
+    paths:
+      - .import/source/**
+      - .github/workflows/publish-verified-batch2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-verified-batch2
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+    env:
+      EXPECTED_ARCHIVE_SHA: eef1953a95d05a37c3ce3009070d7593730f0a5af7faaa5e0ffec1238e3863c3
+      EXPECTED_TREE_SHA: e2c43eed1906c137da1ff445fb4daf78be824170
+      SOUQ_SHA: 9b8757e5416a9b9200e6af67e95c6de4dede3ef85d0ddef9a358806286ae83e8
+      TRADITIONAL_SHA: 1d1c15d24b98a6308360c51c9c4908918aa5bb5d2bf6f0743addb742cdcc0482
+      VILLA_SHA: becfe7d6c0db188540dce85fd71a570991f7b90400d01da3f157162e17249361
+      WATERFRONT_SHA: fa2c09e58765c72a8dada323b1066c1d36317db9bb3229f77e94c5891aac0380
+      MONTAGE_SHA: 35d0c710a26346e3f0436bbc71ec01eeedf8c3a18e82147ef225d8c495b6cb12
+    steps:
+      - name: Install deterministic toolchain
+        shell: bash
+        run: |
+          set -euxo pipefail
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            ca-certificates curl git build-essential pkg-config \
+            python3 python3-venv \
+            libbz2-dev libcairo2-dev libfontconfig1-dev libfreetype6-dev \
+            libgs-dev libjbig-dev libjpeg-dev liblzma-dev libpango1.0-dev \
+            libpng-dev librsvg2-dev libtiff-dev libwebp-dev libxml2-dev \
+            libzstd-dev zlib1g-dev
+          python3 -m venv /opt/bba-venv
+          /opt/bba-venv/bin/pip install --no-cache-dir cairosvg==2.8.2
+          curl -fsSL https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.2-1.tar.gz -o /tmp/imagemagick.tar.gz
+          tar -xzf /tmp/imagemagick.tar.gz -C /tmp
+          cd /tmp/ImageMagick-7.1.2-1
+          ./configure \
+            --prefix=/opt/imagemagick \
+            --disable-shared \
+            --disable-openmp \
+            --with-modules=no \
+            --disable-opencl \
+            --without-perl \
+            --without-x \
+            --with-gslib \
+            --with-rsvg=yes \
+            CFLAGS='-O2 -static' \
+            LDFLAGS='-static -static-libgcc -static-libstdc++'
+          make -j2
+          make install
+          /opt/imagemagick/bin/magick -version
+
+      - name: Fetch isolated import branch
+        shell: bash
+        run: |
+          set -euxo pipefail
+          git clone --depth 1 --branch import/batch2-verified \
+            "https://github.com/${GITHUB_REPOSITORY}.git" /stage
+
+      - name: Reconstruct and verify source archive
+        shell: bash
+        run: |
+          set -euxo pipefail
+          cat \
+            /stage/.import/source/part-00 \
+            /stage/.import/source/part-01 \
+            /stage/.import/source/part-02 \
+            /stage/.import/source/part-03a \
+            /stage/.import/source/part-03b \
+            /stage/.import/source/part-03ca \
+            /stage/.import/source/part-03cb \
+            /stage/.import/source/part-03cc \
+            | tr -d '\r\n' | base64 --decode > /tmp/source.tar.gz
+          echo "${EXPECTED_ARCHIVE_SHA}  /tmp/source.tar.gz" | sha256sum --check --strict
+          mkdir -p /exact
+          tar -xzf /tmp/source.tar.gz -C /exact
+
+      - name: Recreate binary previews byte-for-byte
+        shell: bash
+        run: |
+          set -euxo pipefail
+          /opt/bba-venv/bin/python - <<'PY'
+          from pathlib import Path
+          import cairosvg
+
+          root = Path('/exact')
+          concepts = root / 'docs/assets/concepts'
+          previews = concepts / 'previews'
+          previews.mkdir(parents=True, exist_ok=True)
+          names = (
+              'bh_arch_villa_kit_concept',
+              'bh_arch_traditional_kit_concept',
+              'bh_arch_souq_kit_concept',
+              'bh_arch_waterfront_kit_concept',
+          )
+          for name in names:
+              cairosvg.svg2png(
+                  url=str(concepts / f'{name}.svg'),
+                  write_to=str(previews / f'{name}.png'),
+                  output_width=1600,
+                  output_height=900,
+              )
+          PY
+          P=/exact/docs/assets/concepts/previews
+          MAGICK=/opt/imagemagick/bin/magick
+          "$MAGICK" "$P/bh_arch_villa_kit_concept.png" "$P/bh_arch_traditional_kit_concept.png" +append /tmp/top.png
+          "$MAGICK" "$P/bh_arch_souq_kit_concept.png" "$P/bh_arch_waterfront_kit_concept.png" +append /tmp/bottom.png
+          "$MAGICK" /tmp/top.png /tmp/bottom.png -append "$P/architecture_batch_01_montage.png"
+          /opt/bba-venv/bin/python - <<'PY'
+          from pathlib import Path
+          import struct
+          import zlib
+
+          path = Path('/exact/docs/assets/concepts/previews/architecture_batch_01_montage.png')
+          source = path.read_bytes()
+          output = bytearray(source[:8])
+          position = 8
+          timestamps = {
+              b'date:create': b'2026-07-13T14:51:52+00:00',
+              b'date:modify': b'2026-07-13T14:51:52+00:00',
+              b'date:timestamp': b'2026-07-13T14:51:52+00:00',
+          }
+          while position < len(source):
+              length = struct.unpack('>I', source[position:position + 4])[0]
+              kind = source[position + 4:position + 8]
+              data = source[position + 8:position + 8 + length]
+              if kind == b'tIME':
+                  data = struct.pack('>HBBBBB', 2026, 7, 13, 14, 51, 53)
+              elif kind == b'tEXt':
+                  key, _, _ = data.partition(b'\0')
+                  if key in timestamps:
+                      data = key + b'\0' + timestamps[key]
+              output += struct.pack('>I', len(data))
+              output += kind
+              output += data
+              output += struct.pack('>I', zlib.crc32(kind + data) & 0xFFFFFFFF)
+              position += 12 + length
+          path.write_bytes(output)
+          PY
+          cat > /tmp/previews.sha256 <<EOF
+          ${MONTAGE_SHA}  /exact/docs/assets/concepts/previews/architecture_batch_01_montage.png
+          ${SOUQ_SHA}  /exact/docs/assets/concepts/previews/bh_arch_souq_kit_concept.png
+          ${TRADITIONAL_SHA}  /exact/docs/assets/concepts/previews/bh_arch_traditional_kit_concept.png
+          ${VILLA_SHA}  /exact/docs/assets/concepts/previews/bh_arch_villa_kit_concept.png
+          ${WATERFRONT_SHA}  /exact/docs/assets/concepts/previews/bh_arch_waterfront_kit_concept.png
+          EOF
+          sha256sum --check --strict /tmp/previews.sha256
+
+      - name: Validate exact tree and repository gates
+        shell: bash
+        run: |
+          set -euxo pipefail
+          cd /exact
+          python3 tools/validate_manifests.py
+          python3 -m unittest discover -s tests -v
+          python3 tools/check_signing_material.py .
+          python3 -m py_compile tools/blender/*.py tools/*.py
+          git init -q
+          git add -A
+          test "$(git ls-files | wc -l | tr -d ' ')" = '133'
+          ACTUAL_TREE="$(git write-tree)"
+          echo "Verified tree: ${ACTUAL_TREE}"
+          test "${ACTUAL_TREE}" = "${EXPECTED_TREE_SHA}"
+
+      - name: Publish exact verified tree to main
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euxo pipefail
+          cd /exact
+          git config user.name 'Bahrain Brick Asset Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git commit -m 'feat: publish verified Phase 4 Batch 2 asset system'
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force origin HEAD:main
