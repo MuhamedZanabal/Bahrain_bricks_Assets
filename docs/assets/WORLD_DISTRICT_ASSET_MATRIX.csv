@@ -65,3 +65,10 @@ bh_waterfront_tower_a_01,,primary,primary,,,,,,,,,,primary,
 bh_waterfront_tower_b_01,,primary,primary,,,,,,,,,,primary,
 bh_waterfront_tower_c_01,,primary,primary,,,,,,,,,,primary,
 bh_waterfront_skyline_silhouette_01,,primary,primary,,,,,,,,,,primary,
+bh_road_intersection_four_way_20m_01,1,1,1,1,1,1,1,1,1,1,0,0,0,0
+bh_road_intersection_t_20m_01,1,1,1,1,1,1,1,1,1,1,0,0,0,0
+bh_road_roundabout_compact_24m_01,1,1,1,1,1,1,1,1,1,1,0,0,0,0
+bh_road_crossing_zebra_8m_01,1,1,1,1,1,1,1,1,1,1,0,0,0,0
+bh_prop_traffic_signal_a_01,1,1,1,1,1,1,1,1,1,1,0,0,0,0
+bh_prop_crash_barrier_4m_01,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+bh_prop_bus_shelter_a_01,1,0,1,1,0,0,1,1,0,0,0,0,0,0

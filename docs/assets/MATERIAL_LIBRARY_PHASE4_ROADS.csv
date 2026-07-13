@@ -1,0 +1,8 @@
+material_id,name,domain,albedo_hex,roughness,metallic,texture_resolution,shader_tier,low_quality_fallback,notes
+bh_mat_asphalt_worn,Worn Asphalt,roads,#1A1B1C,0.92,0.00,1024,standard_mobile,flat_color_plus_tiling_normal,Shared across road geometry.
+bh_mat_road_marking_white,Road Marking White,roads,#EBE8D1,0.65,0.00,512,standard_mobile,flat_color,Use geometry only near camera; atlas at distance.
+bh_mat_concrete_light,Light Concrete,urban,#9E9990,0.88,0.00,512,standard_mobile,flat_color,Kerbs islands and transit bases.
+bh_mat_painted_metal_charcoal,Painted Metal Charcoal,props,#121417,0.50,0.05,512,standard_mobile,flat_color,Signals lamps shelters and bollards.
+bh_mat_galvanized_metal,Galvanized Metal,props,#6B7073,0.55,0.65,512,standard_mobile,rough metallic flat,Crash barriers and industrial props.
+bh_mat_tinted_glass,Tinted Glass,props,#1F3847,0.20,0.00,256,transparent_limited,opaque_dark_glass,Transparency disabled on low quality.
+bh_mat_warm_wood,Warm Wood,props,#61331A,0.72,0.00,512,standard_mobile,flat_color,Shelter seating and café furniture.

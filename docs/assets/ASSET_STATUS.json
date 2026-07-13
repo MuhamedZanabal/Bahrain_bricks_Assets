@@ -23,5 +23,9 @@
     "blender_generators": 4,
     "production_specs": 3
   },
-  "master_manifest_records": 82
+  "master_manifest_records": 82,
+  "master_asset_count": 89,
+  "phase": "Phase 4 \u2014 Procedural Asset Batch 2",
+  "last_verified_date": "2026-07-13",
+  "latest_batch": "road intersections and transit street props"
 }

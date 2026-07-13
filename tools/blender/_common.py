@@ -25,3 +25,25 @@ def add_box_collision(source, suffix='col_box_01'):
 def export_glb(path):
     path=Path(path); path.parent.mkdir(parents=True,exist_ok=True)
     bpy.ops.export_scene.gltf(filepath=str(path),export_format='GLB',use_selection=False,export_apply=True)
+
+# Phase 4 canonical helper API. `half_extents` follows Godot BoxShape3D
+# semantics and avoids ambiguity in procedural specifications.
+def create_material(name, color, roughness=0.7, metallic=0.0):
+    rgba = tuple(color)
+    rgb = rgba[:3]
+    return mat(name, rgb, roughness=roughness, metallic=metallic)
+
+
+def add_box(name, half_extents, location=(0, 0, 0), material=None):
+    dimensions = tuple(float(v) * 2.0 for v in half_extents)
+    return cube(name, location, dimensions, material)
+
+
+def add_collision_box(source, name, half_extents, location=(0, 0, 0)):
+    dimensions = tuple(float(v) * 2.0 for v in half_extents)
+    collision = cube(name, location, dimensions, None)
+    collision.display_type = 'WIRE'
+    collision.hide_render = True
+    collision['collision_proxy'] = True
+    collision['source_object'] = source.name
+    return collision
