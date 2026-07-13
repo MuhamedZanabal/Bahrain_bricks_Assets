@@ -1,0 +1,20 @@
+{
+  "manifest_validator": {
+    "returncode": 0,
+    "stdout": "Manifest validation passed: 74 master assets\n",
+    "stderr": ""
+  },
+  "unit_tests": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_inherited_are_quarantined (test_manifest_headers.ManifestTests.test_inherited_are_quarantined) ... ok\ntest_master_has_rows_and_unique_ids (test_manifest_headers.ManifestTests.test_master_has_rows_and_unique_ids) ... ok\ntest_rejects_hyphen (test_naming.NamingTests.test_rejects_hyphen) ... ok\ntest_rejects_uppercase (test_naming.NamingTests.test_rejects_uppercase) ... ok\ntest_valid (test_naming.NamingTests.test_valid) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.002s\n\nOK\n"
+  },
+  "compileall": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "blender_runtime": "not_available",
+  "godot_runtime": "not_available",
+  "android_runtime": "not_available"
+}
