@@ -1,20 +1,42 @@
 {
   "manifest_validator": {
+    "command": "/opt/pyvenv/bin/python tools/validate_manifests.py",
     "returncode": 0,
     "stdout": "Manifest validation passed: 74 master assets\n",
     "stderr": ""
   },
   "unit_tests": {
+    "command": "/opt/pyvenv/bin/python -m unittest discover -s tests -v",
     "returncode": 0,
     "stdout": "",
-    "stderr": "test_inherited_are_quarantined (test_manifest_headers.ManifestTests.test_inherited_are_quarantined) ... ok\ntest_master_has_rows_and_unique_ids (test_manifest_headers.ManifestTests.test_master_has_rows_and_unique_ids) ... ok\ntest_rejects_hyphen (test_naming.NamingTests.test_rejects_hyphen) ... ok\ntest_rejects_uppercase (test_naming.NamingTests.test_rejects_uppercase) ... ok\ntest_valid (test_naming.NamingTests.test_valid) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.002s\n\nOK\n"
+    "stderr": "test_inherited_are_quarantined (test_manifest_headers.ManifestTests.test_inherited_are_quarantined) ... ok\ntest_master_has_rows_and_unique_ids (test_manifest_headers.ManifestTests.test_master_has_rows_and_unique_ids) ... ok\ntest_rejects_hyphen (test_naming.NamingTests.test_rejects_hyphen) ... ok\ntest_rejects_uppercase (test_naming.NamingTests.test_rejects_uppercase) ... ok\ntest_valid (test_naming.NamingTests.test_valid) ... ok\ntest_documentation_may_describe_historical_issue (test_signing_material.SigningMaterialTests.test_documentation_may_describe_historical_issue) ... ok\ntest_rejects_keystore_binary_by_extension (test_signing_material.SigningMaterialTests.test_rejects_keystore_binary_by_extension) ... ok\ntest_rejects_password_assignment_in_export_config (test_signing_material.SigningMaterialTests.test_rejects_password_assignment_in_export_config) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.004s\n\nOK\n"
+  },
+  "signing_material": {
+    "command": "/opt/pyvenv/bin/python tools/check_signing_material.py .",
+    "returncode": 0,
+    "stdout": "Signing-material validation passed\n",
+    "stderr": ""
   },
   "compileall": {
+    "command": "/opt/pyvenv/bin/python -m compileall -q tools scripts tests",
     "returncode": 0,
     "stdout": "",
     "stderr": ""
   },
-  "blender_runtime": "not_available",
-  "godot_runtime": "not_available",
-  "android_runtime": "not_available"
+  "svg_xml": {
+    "returncode": 0,
+    "parsed": 4,
+    "errors": []
+  },
+  "required_files": {
+    "returncode": 0,
+    "required": 21,
+    "missing": []
+  },
+  "runtime_availability": {
+    "blender": "not_available",
+    "godot": "not_available",
+    "android_device_or_emulator": "not_available"
+  },
+  "all_host_checks_passed": true
 }
