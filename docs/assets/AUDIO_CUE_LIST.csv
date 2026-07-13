@@ -1,0 +1,67 @@
+cue_id,name,group,variant_count,loop,spatial,target_format,license_requirement,status,notes
+bh_amb_ambience_manama_traffic_01,Manama Traffic,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_souq_crowd_01,Souq Crowd,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_supermarket_01,Supermarket,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_cafe_01,Cafe,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_restaurant_01,Restaurant,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_mall_01,Mall,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_waterfront_01,Waterfront,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_marina_01,Marina,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_beach_01,Beach,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_desert_wind_01,Desert Wind,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_residential_night_01,Residential Night,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_industrial_01,Industrial,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_construction_01,Construction,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_ac_hum_01,Ac Hum,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_electrical_hum_01,Electrical Hum,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_birds_01,Birds,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_waves_01,Waves,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_amb_ambience_distant_horns_01,Distant Horns,ambience,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_sedan_idle_01,Sedan Idle,vehicles,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_sedan_acceleration_01,Sedan Acceleration,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_suv_idle_01,Suv Idle,vehicles,2-6,true,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_suv_acceleration_01,Suv Acceleration,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_sports_car_01,Sports Car,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_van_01,Van,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_truck_01,Truck,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_police_siren_01,Police Siren,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_ambulance_siren_01,Ambulance Siren,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_fire_siren_01,Fire Siren,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_horn_01,Horn,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_tyre_skid_01,Tyre Skid,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_gravel_01,Gravel,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_collision_01,Collision,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_suspension_01,Suspension,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_engine_start_01,Engine Start,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_engine_stop_01,Engine Stop,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_door_open_01,Door Open,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_door_close_01,Door Close,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_indicator_01,Indicator,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_reverse_alert_01,Reverse Alert,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_boat_engine_01,Boat Engine,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_water_impact_01,Water Impact,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_vehicles_wake_01,Wake,vehicles,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_footsteps_asphalt_01,Asphalt,footsteps,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_footsteps_tile_01,Tile,footsteps,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_footsteps_concrete_01,Concrete,footsteps,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_footsteps_sand_01,Sand,footsteps,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_footsteps_wet_ground_01,Wet Ground,footsteps,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_footsteps_metal_01,Metal,footsteps,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_footsteps_wood_01,Wood,footsteps,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_footsteps_gravel_01,Gravel,footsteps,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_footsteps_carpet_01,Carpet,footsteps,2-6,false,true,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_button_01,Button,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_back_01,Back,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_confirm_01,Confirm,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_error_01,Error,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_purchase_01,Purchase,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_mission_start_01,Mission Start,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_objective_update_01,Objective Update,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_mission_complete_01,Mission Complete,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_wanted_increase_01,Wanted Increase,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_wanted_clear_01,Wanted Clear,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_phone_open_01,Phone Open,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_phone_close_01,Phone Close,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_notification_01,Notification,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_save_01,Save,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively
+bh_sfx_ui_load_01,Load,ui,2-6,false,false,OGG Vorbis,original|CC0|CC BY with attribution,queued,No sacred recitation used decoratively

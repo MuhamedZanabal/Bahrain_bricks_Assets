@@ -1,0 +1,49 @@
+icon_id,name,group,required_states,format,master_size,safe_area_rule,status
+bh_ui_icon_joystick_base_01,Joystick Base,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_joystick_knob_01,Joystick Knob,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_jump_01,Jump,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_sprint_01,Sprint,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_interact_01,Interact,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_enter_vehicle_01,Enter Vehicle,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_exit_vehicle_01,Exit Vehicle,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_accelerator_01,Accelerator,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_brake_01,Brake,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_reverse_01,Reverse,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_steering_01,Steering,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_handbrake_01,Handbrake,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_horn_01,Horn,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_camera_01,Camera,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_phone_01,Phone,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_map_01,Map,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_pause_01,Pause,controls,normal|pressed|disabled|highlighted|tutorial_pulse,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_health_01,Health,hud,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_stamina_01,Stamina,hud,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_money_01,Money,hud,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_wanted_01,Wanted,hud,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_mission_01,Mission,hud,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_minimap_01,Minimap,hud,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_speedometer_01,Speedometer,hud,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_fuel_01,Fuel,hud,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_vehicle_damage_01,Vehicle Damage,hud,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_district_01,District,hud,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_notification_01,Notification,hud,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_time_01,Time,hud,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_weather_01,Weather,hud,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_player_01,Player,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_waypoint_01,Waypoint,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_home_01,Home,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_property_01,Property,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_shop_01,Shop,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_supermarket_01,Supermarket,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_cafe_01,Cafe,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_restaurant_01,Restaurant,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_petrol_station_01,Petrol Station,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_garage_01,Garage,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_police_01,Police,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_clinic_01,Clinic,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_marina_01,Marina,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_boat_01,Boat,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_race_01,Race,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_delivery_01,Delivery,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_business_01,Business,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued
+bh_ui_icon_parking_01,Parking,map,normal|highlighted,SVG master + PNG atlas,128x128 vector grid,minimum 48dp target; 8dp spacing,queued

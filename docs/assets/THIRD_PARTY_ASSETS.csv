@@ -1,0 +1,6 @@
+asset_group,paths_or_count,claimed_source,verified_creator,verified_license,license_url,source_url,source_revision,archive_sha256,status,required_action
+generic_buildings,18 GLB references,Kenney CC0 comment in AssetLoader,,,,,,,QUARANTINED,Locate exact pack/revision; archive license; hash original download; map every filename
+generic_vehicles,10 GLB references,Kenney CC0 comment in AssetLoader,,,,,,,QUARANTINED,Same as above; also verify design/branding and wheel separation
+generic_nature,14 GLB references,Kenney CC0 comment in AssetLoader,,,,,,,QUARANTINED,Identify exact source pack and prove license per archive
+generic_roads,3 GLB references,Kenney CC0 comment in AssetLoader,,,,,,,QUARANTINED,Identify exact source pack; assess Bahrain road suitability
+flexible_toon_shader,11 audited addon paths,CaptainProton42/FlexibleToonShaderGD,John Wigg,MIT upstream; local derivative mapping inferred,,https://github.com/CaptainProton42/FlexibleToonShaderGD,dacf9a41d697a26360af96cdbf6332589cd97ab7,,QUARANTINED,Confirm Godot 4 port authorship and remove/attribute example assets

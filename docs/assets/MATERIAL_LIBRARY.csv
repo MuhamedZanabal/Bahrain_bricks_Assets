@@ -1,0 +1,37 @@
+material_id,name,family,albedo_source,normal_source,roughness_source,metallic_source,ao_source,tiling_m_per_repeat,max_resolution,compression,shader_complexity,low_quality_fallback,status
+bh_mat_asphalt_new,New Asphalt,urban,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,4,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_asphalt_worn,Worn Asphalt,urban,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,4,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_asphalt_patched,Patched Asphalt,urban,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,4,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_concrete_pavement,Pavement Concrete,urban,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,3,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_concrete_light,Light Concrete,urban,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,3,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_concrete_dark,Dark Concrete,urban,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,3,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_plaster_white,White Plaster,architecture,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,3,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_plaster_beige,Beige Plaster,architecture,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,3,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_sandstone,Sandstone,architecture,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,2,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_limestone,Limestone,architecture,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,2,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_metal_painted,Painted Metal,metal,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,1,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_metal_brushed,Brushed Metal,metal,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,1,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_metal_corrugated,Corrugated Metal,metal,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,2,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_glass_dark,Dark Glass,glass,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,0,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_glass_blue,Blue Glass,glass,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,0,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_glass_tinted,Tinted Glass,glass,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,0,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_shop_shutter,Shop Shutter,commercial,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,2,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_roof_tile,Roof Tile,architecture,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,1.5,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_ceramic_tile,Ceramic Tile,interior,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,1,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_marble,Marble,interior,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,2,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_wood_warm,Warm Wood,wood,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,1,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_plastic,Plastic,props,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,1,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_cardboard,Cardboard,props,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,1,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_desert_sand,Desert Sand,environment,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,6,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_beach_sand,Beach Sand,environment,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,5,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_wet_sand,Wet Sand,environment,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,4,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_soil,Soil,environment,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,3,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_gravel,Gravel,environment,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,3,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_coastal_rock,Coastal Rock,environment,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,2,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_dry_rock,Dry Rock,environment,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,2,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_grass_landscaped,Landscaped Grass,environment,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,2,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_grass_dry,Dry Grass,environment,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,2,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_overlay_dust,Dust Overlay,overlay,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,4,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_overlay_salt,Salt Weathering,overlay,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,3,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_overlay_sun_bleach,Sun Bleaching,overlay,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,4,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_overlay_tyre_marks,Tyre Marks,overlay,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,0,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
