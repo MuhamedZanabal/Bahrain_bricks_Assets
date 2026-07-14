@@ -35,3 +35,10 @@ bh_mat_overlay_dust,Dust Overlay,overlay,to_generate,optional_or_generate,to_gen
 bh_mat_overlay_salt,Salt Weathering,overlay,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,3,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
 bh_mat_overlay_sun_bleach,Sun Bleaching,overlay,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,4,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
 bh_mat_overlay_tyre_marks,Tyre Marks,overlay,to_generate,optional_or_generate,to_generate,0 except metal,omit unless justified,0,1024,ETC2/ASTC via Godot import,standard_mobile,flat_color_roughness,specified
+bh_mat_asphalt_highway_a,bh_mat_asphalt_highway_a,,,,,,,,1024,,,,specified
+bh_mat_road_marking_white_a,bh_mat_road_marking_white_a,,,,,,,,512,,,,specified
+bh_mat_pavement_warm_a,bh_mat_pavement_warm_a,,,,,,,,512,,,,specified
+bh_mat_kerb_light_a,bh_mat_kerb_light_a,,,,,,,,512,,,,specified
+bh_mat_drain_concrete_a,bh_mat_drain_concrete_a,,,,,,,,512,,,,specified
+bh_mat_sign_metal_a,bh_mat_sign_metal_a,,,,,,,,512,,,,specified
+bh_mat_checkout_body_a,bh_mat_checkout_body_a,,,,,,,,512,,,,specified

@@ -72,3 +72,12 @@ bh_road_crossing_zebra_8m_01,1,1,1,1,1,1,1,1,1,1,0,0,0,0
 bh_prop_traffic_signal_a_01,1,1,1,1,1,1,1,1,1,1,0,0,0,0
 bh_prop_crash_barrier_4m_01,0,0,0,0,0,0,0,0,0,0,0,1,1,1
 bh_prop_bus_shelter_a_01,1,0,1,1,0,0,1,1,0,0,0,0,0,0
+bh_road_highway_six_lane_straight_40m_01,1,1,1,1,0,0,0,1,0,0,1,0,1,0
+bh_road_highway_curve_40m_01,1,1,1,1,0,0,0,1,0,0,1,0,1,0
+bh_road_highway_slip_road_30m_01,1,1,1,1,0,0,0,1,0,0,1,0,1,0
+bh_road_highway_exit_40m_01,1,1,1,1,0,0,0,1,0,0,1,0,1,0
+bh_sidewalk_commercial_straight_4m_01,1,1,1,1,1,1,1,1,1,1,0,0,0,0
+bh_sidewalk_driveway_cut_4m_01,1,0,1,1,1,1,1,1,1,1,0,0,0,0
+bh_drainage_channel_straight_4m_01,1,0,1,1,1,1,1,1,1,1,0,0,0,1
+bh_prop_direction_sign_frame_a_01,1,1,1,1,0,0,0,1,0,0,1,0,1,0
+bh_prop_supermarket_checkout_a_01,1,0,1,1,1,1,1,1,1,1,0,0,0,0
