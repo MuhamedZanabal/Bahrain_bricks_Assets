@@ -1,0 +1,42 @@
+name: Import verified Phase 4 Batch 3 history
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Download checksum-locked Git bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://bahrain-brick-assets-20260714.serveo.net'
+          curl --fail --location --retry 12 --retry-all-errors "$base/bahrain-brick-assets-phase4-batch3.bundle" --output bahrain-brick-assets-phase4-batch3.bundle
+          curl --fail --location --retry 12 --retry-all-errors "$base/bahrain-brick-assets-phase4-batch3.bundle.sha256" --output bahrain-brick-assets-phase4-batch3.bundle.sha256
+          curl --fail --location --retry 12 --retry-all-errors "$base/EXPECTED_HEAD.txt" --output EXPECTED_HEAD.txt
+          sha256sum -c bahrain-brick-assets-phase4-batch3.bundle.sha256
+          git bundle verify bahrain-brick-assets-phase4-batch3.bundle
+
+      - name: Verify and publish exact repository history
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected="$(tr -d '\r\n' < EXPECTED_HEAD.txt)"
+          git clone bahrain-brick-assets-phase4-batch3.bundle /tmp/imported
+          cd /tmp/imported
+          branch='work/bahrain-brick-complete-asset-system-v1'
+          actual="$(git rev-parse "$branch")"
+          test "$actual" = "$expected"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force origin "refs/heads/${branch}:refs/heads/main"
+          git push --force origin "refs/heads/${branch}:refs/heads/${branch}"
