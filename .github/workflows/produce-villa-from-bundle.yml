@@ -1,0 +1,188 @@
+name: Produce villa family from verified authority bundle
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+env:
+  AUTHORITY_BUNDLE: authority/bahrain-brick-assets-runtime-v1-2bd2a55.bundle
+  AUTHORITY_BUNDLE_SHA256: d42c3dc501e4ea5926e413080c2e06af4bd1d4ca328178da887e62768d7e8182
+  AUTHORITY_HEAD: 2bd2a550ffd3cb3fffc2da1693c9b7e729a6adb6
+  AUTHORITY_REF: work/bahrain-brick-complete-asset-system-v1
+  PHASE5_SOURCE_HEAD: 84ac94399262f71f29bf65dd553cd7729d87cce0
+  BLENDER_VERSION: '4.3.2'
+  GODOT_VERSION: '4.3'
+  GENERATOR_SEED: '1405'
+
+jobs:
+  produce:
+    if: github.event.pull_request.head.ref == 'ops/trigger-phase5-publication'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - name: Checkout safe execution scaffold
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Verify and extract exact descendant authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(stat -c '%s' "${AUTHORITY_BUNDLE}")" = '650941'
+          echo "${AUTHORITY_BUNDLE_SHA256}  ${AUTHORITY_BUNDLE}" | sha256sum -c -
+          git bundle verify "${AUTHORITY_BUNDLE}" 2>&1 | tee authority-bundle-verification.log
+          test "$(git bundle list-heads "${AUTHORITY_BUNDLE}" "refs/heads/${AUTHORITY_REF}" | awk '{print $1}')" = "${AUTHORITY_HEAD}"
+          git clone --branch "${AUTHORITY_REF}" "${AUTHORITY_BUNDLE}" production
+          test "$(git -C production rev-parse HEAD)" = "${AUTHORITY_HEAD}"
+          git -C production merge-base --is-ancestor "${PHASE5_SOURCE_HEAD}" "${AUTHORITY_HEAD}"
+
+      - name: Install pinned Blender from official archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd production
+          base="https://download.blender.org/release/Blender4.3"
+          archive="blender-${BLENDER_VERSION}-linux-x64.tar.xz"
+          curl --fail --location --retry 5 --proto '=https' "${base}/${archive}" --output "${archive}"
+          curl --fail --location --retry 5 --proto '=https' "${base}/blender-${BLENDER_VERSION}.sha256" --output blender.sha256
+          test "$(stat -c '%s' "${archive}")" -gt 100000000
+          ! head -c 256 "${archive}" | grep -Eiq '<!doctype|<html|access denied|error'
+          ! head -c 256 blender.sha256 | grep -Eiq '<!doctype|<html|access denied|error'
+          grep " ${archive}$" blender.sha256 | sha256sum -c -
+          tar -xf "${archive}"
+          blender_path="${PWD}/blender-${BLENDER_VERSION}-linux-x64/blender"
+          test -x "${blender_path}"
+          echo "BLENDER=${blender_path}" >> "${GITHUB_ENV}"
+          sha256sum "${archive}" > blender-archive.sha256
+          "${blender_path}" --version | head -3 | tee blender-version.txt
+
+      - name: Install pinned Godot and matching export templates
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd production
+          base="https://github.com/godotengine/godot/releases/download/4.3-stable"
+          editor="Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          templates="Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+          curl --fail --location --retry 5 --proto '=https' "${base}/SHA512-SUMS.txt" --output godot-SHA512-SUMS.txt
+          curl --fail --location --retry 5 --proto '=https' "${base}/${editor}" --output "${editor}"
+          curl --fail --location --retry 5 --proto '=https' "${base}/${templates}" --output "${templates}"
+          ! head -c 256 godot-SHA512-SUMS.txt | grep -Eiq '<!doctype|<html|access denied|error'
+          grep " ${editor}$" godot-SHA512-SUMS.txt | sha512sum -c -
+          grep " ${templates}$" godot-SHA512-SUMS.txt | sha512sum -c -
+          unzip -q "${editor}" -d godot-bin
+          godot_path="${PWD}/godot-bin/Godot_v${GODOT_VERSION}-stable_linux.x86_64"
+          test -x "${godot_path}"
+          mkdir -p "${HOME}/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
+          unzip -q "${templates}" -d templates-unpacked
+          cp -a templates-unpacked/templates/. "${HOME}/.local/share/godot/export_templates/${GODOT_VERSION}.stable/"
+          echo "GODOT=${godot_path}" >> "${GITHUB_ENV}"
+          sha512sum "${editor}" "${templates}" > godot-archives.sha512
+          "${godot_path}" --version | tee godot-version.txt
+          test -f "${HOME}/.local/share/godot/export_templates/${GODOT_VERSION}.stable/android_debug.apk"
+          test -f "${HOME}/.local/share/godot/export_templates/${GODOT_VERSION}.stable/android_release.apk"
+
+      - name: Run authority, rights and production-contract tests
+        working-directory: production
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version | tee python-version.txt
+          python3 -m unittest discover -s tests -v 2>&1 | tee production-tests.log
+          python3 tools/validate_manifests.py 2>&1 | tee manifest-validation.log
+          python3 tools/verify_phase5_authority_ledger.py --repo . --commit "${PHASE5_SOURCE_HEAD}" --ledger SHA256SUMS.phase5-authority 2>&1 | tee ledger-validation.log
+
+      - name: Generate two clean deterministic passes
+        working-directory: production
+        shell: bash
+        run: |
+          set -euo pipefail
+          "${BLENDER}" --background --factory-startup --python tools/blender/generate_villa_kit.py -- \
+            --output-dir generation-run-a --seed "${GENERATOR_SEED}" --profile all --asset-id all \
+            --report generation-run-a/generation-report.json
+          "${BLENDER}" --background --factory-startup --python tools/blender/generate_villa_kit.py -- \
+            --output-dir generation-run-b --seed "${GENERATOR_SEED}" --profile all --asset-id all \
+            --report generation-run-b/generation-report.json
+
+      - name: Verify all derivatives and deterministic hashes
+        working-directory: production
+        shell: bash
+        run: |
+          set -euo pipefail
+          find generation-run-a -type f -name '*.glb' -printf '%P\n' | LC_ALL=C sort > generation-run-a.paths
+          find generation-run-b -type f -name '*.glb' -printf '%P\n' | LC_ALL=C sort > generation-run-b.paths
+          diff -u generation-run-a.paths generation-run-b.paths
+          test "$(wc -l < generation-run-a.paths)" = '162'
+          : > generation-run-a/determinism.sha256
+          while IFS= read -r relative; do
+            a="$(sha256sum "generation-run-a/${relative}" | cut -d' ' -f1)"
+            b="$(sha256sum "generation-run-b/${relative}" | cut -d' ' -f1)"
+            test "${a}" = "${b}"
+            printf '%s  %s\n' "${a}" "${relative}" >> generation-run-a/determinism.sha256
+          done < generation-run-a.paths
+          mapfile -t glbs < <(find generation-run-a -type f -name '*.glb' | LC_ALL=C sort)
+          python3 tools/validate_glb.py "${glbs[@]}" > generation-run-a/glb-validation.json
+          grep -q '"validated": 162' generation-run-a/glb-validation.json
+          echo 'DETERMINISM: 162/162 GLB hashes identical' | tee generation-run-a/determinism-result.txt
+
+      - name: Validate Godot 4.3 import and runtime gallery
+        working-directory: production
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p godot/asset_gallery/generated_assets/villas
+          cp generation-run-a/balanced/*_lod0.glb godot/asset_gallery/generated_assets/villas/
+          test "$(find godot/asset_gallery/generated_assets/villas -name '*.glb' | wc -l)" = '18'
+          "${GODOT}" --headless --editor --path godot/asset_gallery --import --quit 2>&1 | tee generation-run-a/godot-import.log
+          "${GODOT}" --headless --path godot/asset_gallery --quit-after 5 2>&1 | tee generation-run-a/godot-runtime.log
+          grep -q 'BAHRAIN BRICK ASSET GALLERY READY' generation-run-a/godot-runtime.log
+          ! grep -Eiq 'SCRIPT ERROR|Parse Error|ERROR:.*(failed|missing|invalid)' generation-run-a/godot-import.log generation-run-a/godot-runtime.log
+
+      - name: Package first-family production evidence
+        working-directory: production
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/assets/generated/villas evidence/reports/toolchain evidence/reports/generation evidence/reports/authority
+          cp -a generation-run-a/low generation-run-a/balanced generation-run-a/high evidence/assets/generated/villas/
+          cp generation-run-a/generation-report.json evidence/reports/generation/VILLA_FAMILY_GENERATION_REPORT.json
+          cp generation-run-a/glb-validation.json evidence/reports/generation/VILLA_FAMILY_GLB_VALIDATION.json
+          cp generation-run-a/determinism.sha256 evidence/reports/generation/VILLA_FAMILY_SHA256SUMS.txt
+          cp generation-run-a/determinism-result.txt generation-run-a/godot-import.log generation-run-a/godot-runtime.log evidence/reports/generation/
+          cp ../authority-bundle-verification.log production-tests.log manifest-validation.log ledger-validation.log evidence/reports/authority/
+          cp SHA256SUMS.phase5-authority docs/assets/ASSET_RIGHTS_DECLARATION.md docs/assets/ASSET_RIGHTS_TRANSITIONS.csv evidence/reports/authority/
+          BLENDER_ARCHIVE_SHA256="$(cut -d' ' -f1 blender-archive.sha256)" \
+          GODOT_EDITOR_SHA512="$(sed -n '1s/ .*//p' godot-archives.sha512)" \
+          GODOT_TEMPLATES_SHA512="$(sed -n '2s/ .*//p' godot-archives.sha512)" \
+          python3 - <<'PY'
+          import json, os, platform, sys
+          from pathlib import Path
+          report = {
+              "runner": "ubuntu-24.04",
+              "python": {"version": platform.python_version(), "executable": sys.executable, "license": "PSF-2.0", "smoke_command": "python3 --version"},
+              "blender": {"version": "4.3.2", "executable": os.environ["BLENDER"], "archive_sha256": os.environ["BLENDER_ARCHIVE_SHA256"], "source": "https://download.blender.org/release/Blender4.3/", "license": "GPL-3.0-or-later", "smoke_command": "blender --version"},
+              "godot": {"version": "4.3.stable.official.77dcf97d8", "executable": os.environ["GODOT"], "editor_archive_sha512": os.environ["GODOT_EDITOR_SHA512"], "templates_archive_sha512": os.environ["GODOT_TEMPLATES_SHA512"], "source": "https://github.com/godotengine/godot/releases/tag/4.3-stable", "license": "MIT", "smoke_command": "godot --version"},
+              "authority": {"bundle_sha256": "d42c3dc501e4ea5926e413080c2e06af4bd1d4ca328178da887e62768d7e8182", "head": "2bd2a550ffd3cb3fffc2da1693c9b7e729a6adb6", "phase5_source": "84ac94399262f71f29bf65dd553cd7729d87cce0"},
+              "generation": {"family": "villas", "approved_records": 18, "profiles": ["low", "balanced", "high"], "lod_levels": [0, 1, 2], "runtime_derivatives": 162, "seed": 1405, "clean_runs": 2, "matching_hashes": 162, "mismatches": 0},
+              "godot_import": {"version": "4.3", "balanced_lod0_assets": 18, "runtime_startup": "passed"}
+          }
+          Path("evidence/reports/toolchain/TOOLCHAIN_PROVENANCE.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          PY
+          (cd evidence && find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum) > evidence/SHA256SUMS
+          (cd evidence && sha256sum -c SHA256SUMS)
+          tar --sort=name --mtime='UTC 2026-07-14' --owner=0 --group=0 --numeric-owner -czf villa-family-production-evidence.tar.gz evidence
+          sha256sum villa-family-production-evidence.tar.gz > villa-family-production-evidence.tar.gz.sha256
+
+      - name: Upload verified production evidence
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        with:
+          name: villa-family-production-evidence-2bd2a55
+          path: |
+            production/evidence/
+            production/villa-family-production-evidence.tar.gz
+            production/villa-family-production-evidence.tar.gz.sha256
+          if-no-files-found: error
+          retention-days: 30
