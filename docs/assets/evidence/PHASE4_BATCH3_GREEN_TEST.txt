@@ -1,0 +1,8 @@
+test_master_manifest_contains_batch3_ids (tests.test_phase4_batch3_assets.Phase4Batch3AssetTests.test_master_manifest_contains_batch3_ids) ... ok
+test_scripts_exist_and_use_deterministic_cli (tests.test_phase4_batch3_assets.Phase4Batch3AssetTests.test_scripts_exist_and_use_deterministic_cli) ... ok
+test_specs_define_collision_lod_and_android_gate (tests.test_phase4_batch3_assets.Phase4Batch3AssetTests.test_specs_define_collision_lod_and_android_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+OK
