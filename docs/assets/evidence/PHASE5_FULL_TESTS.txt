@@ -1,0 +1,20 @@
+test_benchmark_records_mobile_metrics (test_godot_asset_lab.GodotAssetLabTests.test_benchmark_records_mobile_metrics) ... ok
+test_gallery_scans_only_isolated_generated_assets (test_godot_asset_lab.GodotAssetLabTests.test_gallery_scans_only_isolated_generated_assets) ... ok
+test_project_is_godot_43_mobile_gl_compatibility (test_godot_asset_lab.GodotAssetLabTests.test_project_is_godot_43_mobile_gl_compatibility) ... ok
+test_required_scenes_and_documentation_exist (test_godot_asset_lab.GodotAssetLabTests.test_required_scenes_and_documentation_exist) ... ok
+test_inherited_are_quarantined (test_manifest_headers.ManifestTests.test_inherited_are_quarantined) ... ok
+test_master_has_rows_and_unique_ids (test_manifest_headers.ManifestTests.test_master_has_rows_and_unique_ids) ... ok
+test_rejects_hyphen (test_naming.NamingTests.test_rejects_hyphen) ... ok
+test_rejects_uppercase (test_naming.NamingTests.test_rejects_uppercase) ... ok
+test_valid (test_naming.NamingTests.test_valid) ... ok
+test_master_manifest_contains_batch3_ids (test_phase4_batch3_assets.Phase4Batch3AssetTests.test_master_manifest_contains_batch3_ids) ... ok
+test_scripts_exist_and_use_deterministic_cli (test_phase4_batch3_assets.Phase4Batch3AssetTests.test_scripts_exist_and_use_deterministic_cli) ... ok
+test_specs_define_collision_lod_and_android_gate (test_phase4_batch3_assets.Phase4Batch3AssetTests.test_specs_define_collision_lod_and_android_gate) ... ok
+test_documentation_may_describe_historical_issue (test_signing_material.SigningMaterialTests.test_documentation_may_describe_historical_issue) ... ok
+test_rejects_keystore_binary_by_extension (test_signing_material.SigningMaterialTests.test_rejects_keystore_binary_by_extension) ... ok
+test_rejects_password_assignment_in_export_config (test_signing_material.SigningMaterialTests.test_rejects_password_assignment_in_export_config) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.010s
+
+OK

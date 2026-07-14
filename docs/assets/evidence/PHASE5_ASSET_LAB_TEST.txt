@@ -1,0 +1,9 @@
+test_benchmark_records_mobile_metrics (tests.test_godot_asset_lab.GodotAssetLabTests.test_benchmark_records_mobile_metrics) ... ok
+test_gallery_scans_only_isolated_generated_assets (tests.test_godot_asset_lab.GodotAssetLabTests.test_gallery_scans_only_isolated_generated_assets) ... ok
+test_project_is_godot_43_mobile_gl_compatibility (tests.test_godot_asset_lab.GodotAssetLabTests.test_project_is_godot_43_mobile_gl_compatibility) ... ok
+test_required_scenes_and_documentation_exist (tests.test_godot_asset_lab.GodotAssetLabTests.test_required_scenes_and_documentation_exist) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+OK
