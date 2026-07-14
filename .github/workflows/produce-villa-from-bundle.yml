@@ -9,9 +9,9 @@ permissions:
   contents: read
 
 env:
-  AUTHORITY_BUNDLE: authority/bahrain-brick-assets-runtime-v1-2bd2a55.bundle
-  AUTHORITY_BUNDLE_SHA256: d42c3dc501e4ea5926e413080c2e06af4bd1d4ca328178da887e62768d7e8182
-  AUTHORITY_HEAD: 2bd2a550ffd3cb3fffc2da1693c9b7e729a6adb6
+  AUTHORITY_BUNDLE: authority/bahrain-brick-assets-runtime-v1-d096992.bundle
+  AUTHORITY_BUNDLE_SHA256: 1d5b726e9bd4967af3d38d24d10284b38f6d09af4260fe2d786bf4020dbb2cc9
+  AUTHORITY_HEAD: d096992fbb86bc07ded1ad0507bd20c5b2bec21c
   AUTHORITY_REF: work/bahrain-brick-complete-asset-system-v1
   PHASE5_SOURCE_HEAD: 84ac94399262f71f29bf65dd553cd7729d87cce0
   BLENDER_VERSION: '4.3.2'
@@ -31,7 +31,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test "$(stat -c '%s' "${AUTHORITY_BUNDLE}")" = '650941'
+          test "$(stat -c '%s' "${AUTHORITY_BUNDLE}")" = '652018'
           echo "${AUTHORITY_BUNDLE_SHA256}  ${AUTHORITY_BUNDLE}" | sha256sum -c -
           git bundle verify "${AUTHORITY_BUNDLE}" 2>&1 | tee authority-bundle-verification.log
           test "$(git bundle list-heads "${AUTHORITY_BUNDLE}" "refs/heads/${AUTHORITY_REF}" | awk '{print $1}')" = "${AUTHORITY_HEAD}"
@@ -165,7 +165,7 @@ jobs:
               "python": {"version": platform.python_version(), "executable": sys.executable, "license": "PSF-2.0", "smoke_command": "python3 --version"},
               "blender": {"version": "4.3.2", "executable": os.environ["BLENDER"], "archive_sha256": os.environ["BLENDER_ARCHIVE_SHA256"], "source": "https://download.blender.org/release/Blender4.3/", "license": "GPL-3.0-or-later", "smoke_command": "blender --version"},
               "godot": {"version": "4.3.stable.official.77dcf97d8", "executable": os.environ["GODOT"], "editor_archive_sha512": os.environ["GODOT_EDITOR_SHA512"], "templates_archive_sha512": os.environ["GODOT_TEMPLATES_SHA512"], "source": "https://github.com/godotengine/godot/releases/tag/4.3-stable", "license": "MIT", "smoke_command": "godot --version"},
-              "authority": {"bundle_sha256": "d42c3dc501e4ea5926e413080c2e06af4bd1d4ca328178da887e62768d7e8182", "head": "2bd2a550ffd3cb3fffc2da1693c9b7e729a6adb6", "phase5_source": "84ac94399262f71f29bf65dd553cd7729d87cce0"},
+              "authority": {"bundle_sha256": "1d5b726e9bd4967af3d38d24d10284b38f6d09af4260fe2d786bf4020dbb2cc9", "head": "d096992fbb86bc07ded1ad0507bd20c5b2bec21c", "phase5_source": "84ac94399262f71f29bf65dd553cd7729d87cce0"},
               "generation": {"family": "villas", "approved_records": 18, "profiles": ["low", "balanced", "high"], "lod_levels": [0, 1, 2], "runtime_derivatives": 162, "seed": 1405, "clean_runs": 2, "matching_hashes": 162, "mismatches": 0},
               "godot_import": {"version": "4.3", "balanced_lod0_assets": 18, "runtime_startup": "passed"}
           }
@@ -179,7 +179,7 @@ jobs:
       - name: Upload verified production evidence
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
         with:
-          name: villa-family-production-evidence-2bd2a55
+          name: villa-family-production-evidence-d096992
           path: |
             production/evidence/
             production/villa-family-production-evidence.tar.gz
