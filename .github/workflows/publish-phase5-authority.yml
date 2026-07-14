@@ -6,18 +6,25 @@ on:
     paths:
       - authority/bahrain-brick-assets-phase5-asset-lab.bundle
       - .github/workflows/publish-phase5-authority.yml
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 permissions:
   contents: write
+  pull-requests: read
 
 jobs:
   publish:
+    if: github.event_name != 'pull_request' || (github.event.pull_request.head.ref == 'ops/trigger-phase5-publication' && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Checkout safe publication scaffold
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: main
 
       - name: Verify and publish exact authority branch
         env:
