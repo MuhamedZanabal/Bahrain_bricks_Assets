@@ -1,0 +1,56 @@
+name: Publish verified Phase 5 authority non-destructively
+
+on:
+  push:
+    branches:
+      - ops/publish-phase5-84ac943
+    paths:
+      - authority/bahrain-brick-assets-phase5-asset-lab.bundle
+      - .github/workflows/publish-phase5-authority.yml
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout operations branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ops/publish-phase5-84ac943
+
+      - name: Verify and publish exact authority branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          bundle='authority/bahrain-brick-assets-phase5-asset-lab.bundle'
+          expected='84ac94399262f71f29bf65dd553cd7729d87cce0'
+          target='work/bahrain-brick-complete-asset-system-v1'
+          echo '98e3964a1c84200c8d764116bc027678de0019fc6481ca41825ed606aa2a9c41  authority/bahrain-brick-assets-phase5-asset-lab.bundle' | sha256sum -c -
+          test "$(stat -c '%s' "$bundle")" = '623404'
+          git init --bare verify.git
+          git --git-dir=verify.git bundle verify "${GITHUB_WORKSPACE}/${bundle}"
+          actual="$(git --git-dir=verify.git bundle list-heads "${GITHUB_WORKSPACE}/${bundle}" | awk '$2 == "refs/heads/work/bahrain-brick-complete-asset-system-v1" {print $1}')"
+          test "$actual" = "$expected"
+          remote="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          existing="$(git ls-remote "$remote" "refs/heads/${target}" | awk '{print $1}')"
+          if [ -n "$existing" ]; then
+            test "$existing" = "$expected"
+            echo "Target already exists at exact authority: $existing"
+            exit 0
+          fi
+          git clone --mirror "$bundle" imported.git
+          test "$(git --git-dir=imported.git rev-parse "refs/heads/${target}")" = "$expected"
+          git --git-dir=imported.git remote set-url origin "$remote"
+          git --git-dir=imported.git push origin "refs/heads/${target}:refs/heads/${target}"
+          test "$(git ls-remote "$remote" "refs/heads/${target}" | awk '{print $1}')" = "$expected"
+
+      - name: Record publication summary
+        if: always()
+        shell: bash
+        run: |
+          printf '%s\n' 'target=work/bahrain-brick-complete-asset-system-v1' 'expected=84ac94399262f71f29bf65dd553cd7729d87cce0' 'force_push=false' 'main_updated=false' >> "$GITHUB_STEP_SUMMARY"
