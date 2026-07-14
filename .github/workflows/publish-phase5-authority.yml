@@ -6,13 +6,13 @@ on:
     paths:
       - authority/bahrain-brick-assets-phase5-asset-lab.bundle
       - .github/workflows/publish-phase5-authority.yml
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
   publish:
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
