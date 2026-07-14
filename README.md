@@ -1,5 +1,8 @@
 # Bahrain Brick Assets
 
-Verified Bahrain-specific mobile asset-production repository for the **Bahrain Brick** Godot 4.3 Android project.
+Non-destructive publication scaffold for the verified Bahrain Brick Phase 5 asset authority.
 
-Current verified source target: `e5107a51edb4add0b9bc84aa5818135d03a7f7f4`.
+- Preserved scaffold lineage: see `docs/IMPORT_SCAFFOLD_HISTORY.md`.
+- Published authority target: `work/bahrain-brick-complete-asset-system-v1`.
+- Exact authority commit: `84ac94399262f71f29bf65dd553cd7729d87cce0`.
+- The workflow is prohibited from updating or force-pushing `main`.
