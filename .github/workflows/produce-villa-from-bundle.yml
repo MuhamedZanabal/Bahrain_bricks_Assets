@@ -9,9 +9,9 @@ permissions:
   contents: read
 
 env:
-  AUTHORITY_BUNDLE: authority/bahrain-brick-assets-runtime-v1-d096992.bundle
-  AUTHORITY_BUNDLE_SHA256: 1d5b726e9bd4967af3d38d24d10284b38f6d09af4260fe2d786bf4020dbb2cc9
-  AUTHORITY_HEAD: d096992fbb86bc07ded1ad0507bd20c5b2bec21c
+  AUTHORITY_BUNDLE: authority/bahrain-brick-assets-runtime-v1-f9bb1f8.bundle
+  AUTHORITY_BUNDLE_SHA256: 89c73b89ac65402fa193fd5d6f608bd000f4116bfcfa60140c090b6751ee4735
+  AUTHORITY_HEAD: f9bb1f8d5aca1d8547fd1cc67f570573b9e9f727
   AUTHORITY_REF: work/bahrain-brick-complete-asset-system-v1
   PHASE5_SOURCE_HEAD: 84ac94399262f71f29bf65dd553cd7729d87cce0
   BLENDER_VERSION: '4.3.2'
@@ -31,7 +31,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test "$(stat -c '%s' "${AUTHORITY_BUNDLE}")" = '652018'
+          test "$(stat -c '%s' "${AUTHORITY_BUNDLE}")" = '660172'
           echo "${AUTHORITY_BUNDLE_SHA256}  ${AUTHORITY_BUNDLE}" | sha256sum -c -
           git bundle verify "${AUTHORITY_BUNDLE}" 2>&1 | tee authority-bundle-verification.log
           test "$(git bundle list-heads "${AUTHORITY_BUNDLE}" "refs/heads/${AUTHORITY_REF}" | awk '{print $1}')" = "${AUTHORITY_HEAD}"
@@ -106,6 +106,12 @@ jobs:
           "${BLENDER}" --background --factory-startup --python tools/blender/generate_villa_kit.py -- \
             --output-dir generation-run-b --seed "${GENERATOR_SEED}" --profile all --asset-id all \
             --report generation-run-b/generation-report.json
+          "${BLENDER}" --background --factory-startup --python tools/blender/generate_clean_room_replacements.py -- \
+            --output-dir clean-room-run-a --seed "${GENERATOR_SEED}" \
+            --report clean-room-run-a/generation-report.json
+          "${BLENDER}" --background --factory-startup --python tools/blender/generate_clean_room_replacements.py -- \
+            --output-dir clean-room-run-b --seed "${GENERATOR_SEED}" \
+            --report clean-room-run-b/generation-report.json
 
       - name: Verify all derivatives and deterministic hashes
         working-directory: production
@@ -127,6 +133,22 @@ jobs:
           python3 tools/validate_glb.py "${glbs[@]}" > generation-run-a/glb-validation.json
           grep -q '"validated": 162' generation-run-a/glb-validation.json
           echo 'DETERMINISM: 162/162 GLB hashes identical' | tee generation-run-a/determinism-result.txt
+          find clean-room-run-a -type f \( -name '*.glb' -o -name '*.gdshader' \) -printf '%P\n' | LC_ALL=C sort > clean-room-run-a.paths
+          find clean-room-run-b -type f \( -name '*.glb' -o -name '*.gdshader' \) -printf '%P\n' | LC_ALL=C sort > clean-room-run-b.paths
+          diff -u clean-room-run-a.paths clean-room-run-b.paths
+          test "$(wc -l < clean-room-run-a.paths)" = '64'
+          : > clean-room-run-a/determinism.sha256
+          while IFS= read -r relative; do
+            a="$(sha256sum "clean-room-run-a/${relative}" | cut -d' ' -f1)"
+            b="$(sha256sum "clean-room-run-b/${relative}" | cut -d' ' -f1)"
+            test "${a}" = "${b}"
+            printf '%s  %s\n' "${a}" "${relative}" >> clean-room-run-a/determinism.sha256
+          done < clean-room-run-a.paths
+          mapfile -t clean_glbs < <(find clean-room-run-a -type f -name '*.glb' | LC_ALL=C sort)
+          test "${#clean_glbs[@]}" = '63'
+          python3 tools/validate_glb.py "${clean_glbs[@]}" > clean-room-run-a/glb-validation.json
+          grep -q '"validated": 63' clean-room-run-a/glb-validation.json
+          echo 'CLEAN-ROOM DETERMINISM: 64/64 outputs identical; 63/63 GLBs valid' | tee clean-room-run-a/determinism-result.txt
 
       - name: Validate Godot 4.3 import and runtime gallery
         working-directory: production
@@ -136,6 +158,11 @@ jobs:
           mkdir -p godot/asset_gallery/generated_assets/villas
           cp generation-run-a/balanced/*_lod0.glb godot/asset_gallery/generated_assets/villas/
           test "$(find godot/asset_gallery/generated_assets/villas -name '*.glb' | wc -l)" = '18'
+          mkdir -p godot/asset_gallery/generated_assets/clean_room godot/asset_gallery/generated_shaders
+          cp clean-room-run-a/balanced/*_lod0.glb godot/asset_gallery/generated_assets/clean_room/
+          cp clean-room-run-a/shader/*.gdshader godot/asset_gallery/generated_shaders/
+          test "$(find godot/asset_gallery/generated_assets/clean_room -name '*.glb' | wc -l)" = '7'
+          test "$(find godot/asset_gallery/generated_shaders -name '*.gdshader' | wc -l)" = '1'
           "${GODOT}" --headless --editor --path godot/asset_gallery --import --quit 2>&1 | tee generation-run-a/godot-import.log
           "${GODOT}" --headless --path godot/asset_gallery --quit-after 5 2>&1 | tee generation-run-a/godot-runtime.log
           grep -q 'BAHRAIN BRICK ASSET GALLERY READY' generation-run-a/godot-runtime.log
@@ -146,12 +173,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p evidence/assets/generated/villas evidence/reports/toolchain evidence/reports/generation evidence/reports/authority
+          mkdir -p evidence/assets/generated/villas evidence/assets/generated/clean_room evidence/reports/toolchain evidence/reports/generation evidence/reports/authority evidence/reports/clean_room
           cp -a generation-run-a/low generation-run-a/balanced generation-run-a/high evidence/assets/generated/villas/
+          cp -a clean-room-run-a/low clean-room-run-a/balanced clean-room-run-a/high clean-room-run-a/shader evidence/assets/generated/clean_room/
           cp generation-run-a/generation-report.json evidence/reports/generation/VILLA_FAMILY_GENERATION_REPORT.json
           cp generation-run-a/glb-validation.json evidence/reports/generation/VILLA_FAMILY_GLB_VALIDATION.json
           cp generation-run-a/determinism.sha256 evidence/reports/generation/VILLA_FAMILY_SHA256SUMS.txt
           cp generation-run-a/determinism-result.txt generation-run-a/godot-import.log generation-run-a/godot-runtime.log evidence/reports/generation/
+          cp clean-room-run-a/generation-report.json evidence/reports/clean_room/CLEAN_ROOM_GENERATION_REPORT.json
+          cp clean-room-run-a/glb-validation.json evidence/reports/clean_room/CLEAN_ROOM_GLB_VALIDATION.json
+          cp clean-room-run-a/determinism.sha256 evidence/reports/clean_room/CLEAN_ROOM_SHA256SUMS.txt
+          cp clean-room-run-a/determinism-result.txt docs/assets/CLEAN_ROOM_REPLACEMENT_MAP.csv docs/assets/CLEAN_ROOM_REPLACEMENT_REPORT.md docs/assets/specs/clean_room_replacements.md evidence/reports/clean_room/
           cp ../authority-bundle-verification.log production-tests.log manifest-validation.log ledger-validation.log evidence/reports/authority/
           cp SHA256SUMS.phase5-authority docs/assets/ASSET_RIGHTS_DECLARATION.md docs/assets/ASSET_RIGHTS_TRANSITIONS.csv evidence/reports/authority/
           BLENDER_ARCHIVE_SHA256="$(cut -d' ' -f1 blender-archive.sha256)" \
@@ -165,24 +197,25 @@ jobs:
               "python": {"version": platform.python_version(), "executable": sys.executable, "license": "PSF-2.0", "smoke_command": "python3 --version"},
               "blender": {"version": "4.3.2", "executable": os.environ["BLENDER"], "archive_sha256": os.environ["BLENDER_ARCHIVE_SHA256"], "source": "https://download.blender.org/release/Blender4.3/", "license": "GPL-3.0-or-later", "smoke_command": "blender --version"},
               "godot": {"version": "4.3.stable.official.77dcf97d8", "executable": os.environ["GODOT"], "editor_archive_sha512": os.environ["GODOT_EDITOR_SHA512"], "templates_archive_sha512": os.environ["GODOT_TEMPLATES_SHA512"], "source": "https://github.com/godotengine/godot/releases/tag/4.3-stable", "license": "MIT", "smoke_command": "godot --version"},
-              "authority": {"bundle_sha256": "1d5b726e9bd4967af3d38d24d10284b38f6d09af4260fe2d786bf4020dbb2cc9", "head": "d096992fbb86bc07ded1ad0507bd20c5b2bec21c", "phase5_source": "84ac94399262f71f29bf65dd553cd7729d87cce0"},
+              "authority": {"bundle_sha256": "89c73b89ac65402fa193fd5d6f608bd000f4116bfcfa60140c090b6751ee4735", "head": "f9bb1f8d5aca1d8547fd1cc67f570573b9e9f727", "phase5_source": "84ac94399262f71f29bf65dd553cd7729d87cce0"},
               "generation": {"family": "villas", "approved_records": 18, "profiles": ["low", "balanced", "high"], "lod_levels": [0, 1, 2], "runtime_derivatives": 162, "seed": 1405, "clean_runs": 2, "matching_hashes": 162, "mismatches": 0},
-              "godot_import": {"version": "4.3", "balanced_lod0_assets": 18, "runtime_startup": "passed"}
+              "clean_room": {"quarantined_records_mapped": 8, "replacement_assets": 8, "glb_derivatives": 63, "shader_derivatives": 1, "clean_runs": 2, "matching_hashes": 64, "mismatches": 0, "source_binary_used": False, "visual_tracing_used": False},
+              "godot_import": {"version": "4.3", "balanced_lod0_assets": 25, "mobile_shaders": 1, "runtime_startup": "passed"}
           }
           Path("evidence/reports/toolchain/TOOLCHAIN_PROVENANCE.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
           PY
           (cd evidence && find . -type f ! -name 'SHA256SUMS' -print0 | LC_ALL=C sort -z | xargs -0 sha256sum) > evidence/SHA256SUMS
           (cd evidence && sha256sum -c SHA256SUMS)
-          tar --sort=name --mtime='UTC 2026-07-14' --owner=0 --group=0 --numeric-owner -czf villa-family-production-evidence.tar.gz evidence
-          sha256sum villa-family-production-evidence.tar.gz > villa-family-production-evidence.tar.gz.sha256
+          tar --sort=name --mtime='UTC 2026-07-14' --owner=0 --group=0 --numeric-owner -czf villa-and-clean-room-production-evidence.tar.gz evidence
+          sha256sum villa-and-clean-room-production-evidence.tar.gz > villa-and-clean-room-production-evidence.tar.gz.sha256
 
       - name: Upload verified production evidence
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
         with:
-          name: villa-family-production-evidence-d096992
+          name: villa-and-clean-room-production-evidence-f9bb1f8
           path: |
             production/evidence/
-            production/villa-family-production-evidence.tar.gz
-            production/villa-family-production-evidence.tar.gz.sha256
+            production/villa-and-clean-room-production-evidence.tar.gz
+            production/villa-and-clean-room-production-evidence.tar.gz.sha256
           if-no-files-found: error
           retention-days: 30
