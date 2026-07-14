@@ -171,7 +171,7 @@ jobs:
           }
           Path("evidence/reports/toolchain/TOOLCHAIN_PROVENANCE.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
           PY
-          (cd evidence && find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum) > evidence/SHA256SUMS
+          (cd evidence && find . -type f ! -name 'SHA256SUMS' -print0 | LC_ALL=C sort -z | xargs -0 sha256sum) > evidence/SHA256SUMS
           (cd evidence && sha256sum -c SHA256SUMS)
           tar --sort=name --mtime='UTC 2026-07-14' --owner=0 --group=0 --numeric-owner -czf villa-family-production-evidence.tar.gz evidence
           sha256sum villa-family-production-evidence.tar.gz > villa-family-production-evidence.tar.gz.sha256
