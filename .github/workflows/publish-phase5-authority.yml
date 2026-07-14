@@ -48,7 +48,7 @@ jobs:
             echo "Target already exists at exact authority: $existing"
             exit 0
           fi
-          git clone --mirror "$bundle" imported.git
+          git clone --bare "$bundle" imported.git
           test "$(git --git-dir=imported.git rev-parse "refs/heads/${target}")" = "$expected"
           git --git-dir=imported.git remote set-url origin "$remote"
           git --git-dir=imported.git push origin "refs/heads/${target}:refs/heads/${target}"
