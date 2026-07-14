@@ -24,6 +24,15 @@
     "state": "structurally_validated_pending_runtime",
     "updated_on": "2026-07-14"
   },
+  "phase5_asset_lab": {
+    "android_physical_device": "not_run",
+    "asset_gallery_scene": "godot_asset_lab/scenes/asset_gallery.tscn",
+    "godot_4_3_runtime": "not_run",
+    "mobile_benchmark_scene": "godot_asset_lab/scenes/mobile_benchmark.tscn",
+    "production_game_repository_modified": false,
+    "project_path": "godot_asset_lab/project.godot",
+    "state": "scaffold_ready_pending_godot_runtime"
+  },
   "phase_4_procedural_batch_1": {
     "blender_generators": 4,
     "new_asset_records": 8,

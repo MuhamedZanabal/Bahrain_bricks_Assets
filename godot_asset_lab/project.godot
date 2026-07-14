@@ -1,0 +1,24 @@
+; Bahrain Brick isolated asset-production laboratory.
+; This project is intentionally separate from the production game repository.
+config_version=5
+
+[application]
+
+config/name="Bahrain Brick Asset Lab"
+run/main_scene="res://scenes/asset_gallery.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+window/handheld/orientation=1
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
