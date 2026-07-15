@@ -63,6 +63,12 @@ class SourceIntegrityTests(unittest.TestCase):
         self.assertNotIn("__pycache__", text)
         self.assertNotIn(".pyc", text)
 
+    def test_ledger_excludes_itself_from_canonical_scope(self) -> None:
+        entries = generate_ledger(self.root, self.ledger)
+
+        self.assertNotIn("SHA256SUMS", entries)
+        self.assertNotIn("  SHA256SUMS\n", self.ledger.read_text(encoding="utf-8"))
+
     def test_repeated_generation_is_deterministic(self) -> None:
         generate_ledger(self.root, self.ledger)
         first = self.ledger.read_bytes()
